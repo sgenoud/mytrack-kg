@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <link type='text-css' rel='stylesheet' href='/css/style.css'/>
+  <body>
+
+      <a href="{{ url }}" class='login'>{{ url_linktext }}</a>
+      <h1> Welcome on Track-Kg</h1>
+
+    {% if is_user %}
+    <form action="/" method="post">
+      <input name="weight"></textarea>
+      <input type="submit" value="Add Weight">
+    </form>
+<div id="chart_div"></div>
+
+
+
+    {% endif %}
+
+
+  </body>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+        var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+        {{ jscode }}
+        chart.draw(jscode_data, {width: 400, height: 240,
+                          title: 'Evolution of your weight',
+                          hAxis: {title: 'Date', },
+                          vAxis: {title: 'Weight',},
+                          legend: 'none'
+                         });
+      }
+    </script>
+</html>
